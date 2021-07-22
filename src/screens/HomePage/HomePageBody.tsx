@@ -94,13 +94,14 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 				</div>
 			</div>
 			<div className="row mt-4">
-				{clir?.results.map((c) => {
+				{clir?.results.map((c, index) => {
 					return (
 						<SearchResultCard
 							filename={c.id}
 							description={c.description || ""}
 							score={c.score}
 							queryid={queryid!}
+							key={index}
 						/>
 					);
 				})}
