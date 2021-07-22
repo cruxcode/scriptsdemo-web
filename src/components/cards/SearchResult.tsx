@@ -31,7 +31,10 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 	return (
 		<div className="card">
 			<div className="card-body">
-				<p className="card-text">{desc}</p>
+				<p
+					className="card-text"
+					dangerouslySetInnerHTML={{ __html: desc || "" }}
+				></p>
 				<p className="card-text">
 					<span className="badge bg-secondary rounded-pill">
 						file: {props.filename}
