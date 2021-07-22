@@ -17,22 +17,21 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 	}>();
 	const [queryid, setQueryid] = useState<string>();
 	const searchInput = useRef<HTMLInputElement>(null);
-
+	const lang = "ps";
+	const size = 20;
 	const handleSourceSelect = (source: "text" | "audio") => {
 		setSource(source);
 	};
 	const handleSearchClick = () => {
 		if (searchInput) {
 			const query = searchInput.current?.value || "";
-			const lang = "ps";
-			const size = 20;
 			search(query, lang, source, size).then((resp) => {
 				console.log(resp);
 				if (resp.success) {
 					const clir_results = JSON.parse(resp.result);
 					console.log(clir_results);
+					setQueryid(resp.queryid.replace(".json", ""));
 					setClir(clir_results);
-					setQueryid(resp.queryid);
 				}
 			});
 		}
@@ -101,6 +100,8 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 							description={c.description || ""}
 							score={c.score}
 							queryid={queryid!}
+							lang={lang}
+							source={source}
 							key={index}
 						/>
 					);
