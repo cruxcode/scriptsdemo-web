@@ -1,7 +1,8 @@
 export interface SearchResultCardProps {
 	filename: string;
 	description: string;
-	score: string;
+	score: number;
+	queryid: string;
 }
 export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 	return (
