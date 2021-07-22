@@ -102,7 +102,7 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 							queryid={queryid!}
 							lang={lang}
 							source={source}
-							key={index}
+							key={c.id}
 						/>
 					);
 				})}
