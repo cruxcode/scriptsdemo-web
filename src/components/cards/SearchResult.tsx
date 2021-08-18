@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { summary } from "../../services";
-
+import "./SearchResult.scss";
 export interface SearchResultCardProps {
 	filename: string;
 	description: string;
@@ -29,20 +29,21 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 		}, 200 + Math.random() * 1000);
 	}, []);
 	return (
-		<div className="card">
-			<div className="card-body">
+		<div>
+			<div>
+				<p
+					style={{
+						backgroundColor: "#C4C4C4",
+						color: "rgb(66, 90, 131)",
+						fontWeight: "bold",
+					}}
+				>
+					{props.filename}
+				</p>
 				<p
 					className="card-text"
 					dangerouslySetInnerHTML={{ __html: desc || "" }}
 				></p>
-				<p className="card-text">
-					<span className="badge bg-secondary rounded-pill">
-						file: {props.filename}
-					</span>
-					<span className="badge bg-secondary rounded-pill">
-						score: {props.score}
-					</span>
-				</p>
 			</div>
 		</div>
 	);

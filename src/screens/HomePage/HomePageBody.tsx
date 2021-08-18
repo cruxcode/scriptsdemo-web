@@ -89,7 +89,7 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 					</button>
 				</div>
 			</div>
-			<div>
+			<div className={"searchresults"}>
 				{clir?.results.map((c, index) => {
 					return (
 						<SearchResultCard
