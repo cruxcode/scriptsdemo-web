@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { SearchResultCard } from "../../components/cards/SearchResult";
 import { search } from "../../services";
-
+import "./HomePage.scss";
 export interface HomePageBodyProps {}
 
 export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
@@ -19,9 +19,6 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 	const searchInput = useRef<HTMLInputElement>(null);
 	const lang = "ps";
 	const size = 20;
-	const handleSourceSelect = (source: "text" | "audio") => {
-		setSource(source);
-	};
 	const handleSearchClick = () => {
 		if (searchInput) {
 			const query = searchInput.current?.value || "";
@@ -37,62 +34,62 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 		}
 	};
 	return (
-		<div className="container">
-			<div className="d-flex flex-row">
-				<div>
-					<button type="button" className="btn btn-primary">
-						{source}
-					</button>
-					<button
-						type="button"
-						className="btn btn-primary dropdown-toggle dropdown-toggle-split"
-						data-bs-toggle="dropdown"
-						aria-expanded="false"
-					>
-						<span className="visually-hidden">Toggle Dropdown</span>
-					</button>
-					<ul className="dropdown-menu">
-						<li>
-							<a
-								className="dropdown-item"
-								onClick={() => {
-									handleSourceSelect("text");
-								}}
-							>
-								text
-							</a>
-						</li>
-						<li>
-							<a
-								className="dropdown-item"
-								onClick={() => {
-									handleSourceSelect("audio");
-								}}
-							>
-								audio
-							</a>
-						</li>
-					</ul>
-				</div>
-				<div style={{ flex: 1, marginRight: "5px", marginLeft: "5px" }}>
+		<div>
+			<div className={"searchbar"}>
+				<div className={"searchbaritem"} style={{ width: "20rem" }}>
 					<input
 						type="text"
-						className="form-control"
-						id="exampleFormControlInput1"
-						placeholder="type your query here"
 						ref={searchInput}
+						style={{
+							boxSizing: "border-box",
+							lineHeight: "1.5rem",
+							width: "100%",
+							borderRadius: "0.5rem",
+							borderColor: "rgb(66, 91, 132)",
+						}}
 					/>
 				</div>
-				<div>
+				<div className={"searchbaritem"}>
+					<select
+						id="source"
+						name="source"
+						style={{
+							fontSize: "1rem",
+							padding: "0.25rem 0",
+							borderRadius: "0.5rem",
+							boxSizing: "border-box",
+							border: "2px solid rgb(66, 91, 132)",
+							minWidth: "8rem",
+						}}
+						value={source}
+						onChange={(selection) => {
+							setSource(selection.target.value as any);
+						}}
+					>
+						<option value="text">Text</option>
+						<option value="audio">Audio</option>
+					</select>
+				</div>
+				<div
+					className={"searchbaritem"}
+					style={{
+						width: "8rem",
+					}}
+				>
 					<button
-						className="btn btn-primary"
+						style={{
+							backgroundColor: "transparent",
+							borderRadius: "0.5rem",
+							width: "100%",
+							border: "2px solid rgb(66, 91, 132)",
+						}}
 						onClick={handleSearchClick}
 					>
 						Search
 					</button>
 				</div>
 			</div>
-			<div className="row mt-4">
+			<div>
 				{clir?.results.map((c, index) => {
 					return (
 						<SearchResultCard
