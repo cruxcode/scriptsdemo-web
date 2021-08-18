@@ -17,11 +17,13 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 	}>();
 	const [queryid, setQueryid] = useState<string>();
 	const searchInput = useRef<HTMLInputElement>(null);
+	const [queryText, setQueryText] = useState<string | null>(null);
 	const lang = "ps";
 	const size = 20;
 	const handleSearchClick = () => {
 		if (searchInput) {
 			const query = searchInput.current?.value || "";
+			setQueryText(query);
 			search(query, lang, source, size).then((resp) => {
 				console.log(resp);
 				if (resp.success) {
@@ -90,6 +92,17 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 				</div>
 			</div>
 			<div className={"searchresults"}>
+				{queryText ? (
+					<div
+						style={{
+							backgroundColor: "rgb(232, 242, 254)",
+							color: "rgb(68, 90, 132)",
+							fontWeight: "bold",
+						}}
+					>
+						Query: {queryText}
+					</div>
+				) : null}
 				{clir?.results.map((c, index) => {
 					return (
 						<SearchResultCard

@@ -40,10 +40,7 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 				>
 					{props.filename}
 				</p>
-				<p
-					className="card-text"
-					dangerouslySetInnerHTML={{ __html: desc || "" }}
-				></p>
+				<p dangerouslySetInnerHTML={{ __html: desc || "" }}></p>
 			</div>
 		</div>
 	);
