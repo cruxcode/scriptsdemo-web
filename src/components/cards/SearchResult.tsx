@@ -42,6 +42,17 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 				</p>
 				<p dangerouslySetInnerHTML={{ __html: desc || "" }}></p>
 			</div>
+			<div>
+				<p>
+					<span className="link">Show Document in English</span>
+					{props.lang === "ps" ? (
+						<span className="link">Show Document in Pashto</span>
+					) : null}
+					{props.lang === "fa" ? (
+						<span className="link">Show Document in Farsi</span>
+					) : null}
+				</p>
+			</div>
 		</div>
 	);
 };

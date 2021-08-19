@@ -100,7 +100,7 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 							fontWeight: "bold",
 						}}
 					>
-						Query: {queryText}
+						<p>Query: {queryText}</p>
 					</div>
 				) : null}
 				{clir?.results.map((c, index) => {
