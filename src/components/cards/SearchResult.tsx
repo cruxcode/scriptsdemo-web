@@ -44,7 +44,7 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 			</div>
 			<div>
 				<p>
-					<span className="link">Show Document in English</span>
+					<button className="link">Show Document in English</button>
 					{props.lang === "ps" ? (
 						<span className="link">Show Document in Pashto</span>
 					) : null}
