@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { summary } from "../../services";
 import "./SearchResult.scss";
 export interface SearchResultCardProps {
@@ -11,7 +11,12 @@ export interface SearchResultCardProps {
 }
 export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 	const [desc, setDesc] = useState<string>();
-	const [docSource, setDocSource] = useState<string>();
+	const [docSource, setDocSource] = useState<string>("");
+	const [translatedDoc, setTranslatedDoc] = useState<string>("");
+	const [showDialog, setShowDialog] = useState<"hidden" | "initial">(
+		"hidden"
+	);
+	const [dialogContent, setDialogContent] = useState<string>("");
 	useEffect(() => {
 		const timer = setInterval(() => {
 			summary(
@@ -24,10 +29,21 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 					clearInterval(timer);
 					setDesc(resp.content.markup);
 					setDocSource(resp.content.evidence.source);
+					setTranslatedDoc(
+						resp.content.evidence.translations["umd-smt"]
+					);
 				}
 			});
 		}, 200 + Math.random() * 1000);
 	}, []);
+	const handleShowEnglish = useCallback(() => {
+		setDialogContent(translatedDoc);
+		setShowDialog("initial");
+	}, [translatedDoc]);
+	const handleShowSource = useCallback(() => {
+		setDialogContent(docSource);
+		setShowDialog("initial");
+	}, [docSource]);
 	return (
 		<div>
 			<div>
@@ -44,14 +60,32 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 			</div>
 			<div>
 				<p>
-					<button className="link">Show Document in English</button>
+					<span className="link" onClick={handleShowEnglish}>
+						Show Document in English
+					</span>
 					{props.lang === "ps" ? (
-						<span className="link">Show Document in Pashto</span>
+						<span className="link" onClick={handleShowSource}>
+							Show Document in Pashto
+						</span>
 					) : null}
 					{props.lang === "fa" ? (
-						<span className="link">Show Document in Farsi</span>
+						<span className="link" onClick={handleShowSource}>
+							Show Document in Farsi
+						</span>
 					) : null}
 				</p>
+			</div>
+			<div
+				style={{
+					display: showDialog,
+					position: "absolute",
+					margin: "0 auto",
+					top: "50%",
+					bottom: "50%",
+					transform: "translate(-50%, -50%)",
+				}}
+			>
+				{dialogContent}
 			</div>
 		</div>
 	);
