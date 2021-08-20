@@ -8,15 +8,12 @@ export interface SearchResultCardProps {
 	queryid: string;
 	lang: string;
 	source: string;
+	showDialog: (content: string) => void;
 }
 export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 	const [desc, setDesc] = useState<string>();
 	const [docSource, setDocSource] = useState<string>("");
 	const [translatedDoc, setTranslatedDoc] = useState<string>("");
-	const [showDialog, setShowDialog] = useState<"hidden" | "initial">(
-		"hidden"
-	);
-	const [dialogContent, setDialogContent] = useState<string>("");
 	useEffect(() => {
 		const timer = setInterval(() => {
 			summary(
@@ -35,15 +32,14 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 				}
 			});
 		}, 200 + Math.random() * 1000);
-	}, []);
+	}, [props.queryid, props.filename, props.lang, props.source, props]);
+
 	const handleShowEnglish = useCallback(() => {
-		setDialogContent(translatedDoc);
-		setShowDialog("initial");
-	}, [translatedDoc]);
+		props.showDialog(translatedDoc);
+	}, [translatedDoc, props]);
 	const handleShowSource = useCallback(() => {
-		setDialogContent(docSource);
-		setShowDialog("initial");
-	}, [docSource]);
+		props.showDialog(docSource);
+	}, [docSource, props]);
 	return (
 		<div>
 			<div>
@@ -74,18 +70,6 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 						</span>
 					) : null}
 				</p>
-			</div>
-			<div
-				style={{
-					display: showDialog,
-					position: "absolute",
-					margin: "0 auto",
-					top: "50%",
-					bottom: "50%",
-					transform: "translate(-50%, -50%)",
-				}}
-			>
-				{dialogContent}
 			</div>
 		</div>
 	);
