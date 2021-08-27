@@ -27,7 +27,7 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 					setDesc(resp.content.markup);
 					setDocSource(resp.content.evidence.source);
 					setTranslatedDoc(
-						resp.content.evidence.translations["umd-smt"]
+						resp.content.evidence.translations["edi-nmt"]
 					);
 				}
 			});
