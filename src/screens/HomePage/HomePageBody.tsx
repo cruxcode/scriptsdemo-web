@@ -18,7 +18,7 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 	const [queryid, setQueryid] = useState<string>();
 	const searchInput = useRef<HTMLInputElement>(null);
 	const [queryText, setQueryText] = useState<string | null>(null);
-	const lang = "ps";
+	const [lang, setLang] = useState<string>("fa");
 	const size = 20;
 	const [showDialog, setShowDialog] = useState<boolean>(false);
 	const [dialogContent, setDialogContent] = useState<string>("");
@@ -52,6 +52,27 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 							borderColor: "rgb(66, 91, 132)",
 						}}
 					/>
+				</div>
+				<div className={"searchbaritem"}>
+					<select
+						id="source"
+						name="source"
+						style={{
+							fontSize: "1rem",
+							padding: "0.25rem 0",
+							borderRadius: "0.5rem",
+							boxSizing: "border-box",
+							border: "2px solid rgb(66, 91, 132)",
+							minWidth: "8rem",
+						}}
+						value={source}
+						onChange={(selection) => {
+							setLang(selection.target.value as any);
+						}}
+					>
+						<option value="fa">Farsi</option>
+						<option value="ps">Pashto</option>
+					</select>
 				</div>
 				<div className={"searchbaritem"}>
 					<select

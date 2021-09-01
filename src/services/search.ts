@@ -6,7 +6,7 @@ export function search(
 ) {
 	const headers = new Headers();
 	headers.append("Content-Type", "application/json");
-	return fetch("http://3.129.3.172:8080/search", {
+	return fetch("http://3.23.198.147:8080/search", {
 		method: "POST",
 		headers: headers,
 		body: JSON.stringify({ query, lang, source, size }),
@@ -20,7 +20,7 @@ export function summary(
 	source: string
 ) {
 	return fetch(
-		"http://3.129.3.172:8080/search/summary?" +
+		"http://3.23.198.147:8080/search/summary?" +
 			`queryid=${queryid}` +
 			`&filename=${filename}` +
 			`&lang=${lang}` +

@@ -32,6 +32,9 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 				}
 			});
 		}, 200 + Math.random() * 1000);
+		return () => {
+			clearInterval(timer);
+		};
 	}, [props.queryid, props.filename, props.lang, props.source, props]);
 
 	const handleShowEnglish = useCallback(() => {
