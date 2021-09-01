@@ -1,14 +1,27 @@
 import React from "react";
-
+import CUHeader from "../../assests/cu-header.svg";
+import ScriptsImage from "../../assests/scripts.png";
 export interface HomePageHeaderProps {}
 
 export const HomePageHeader: React.FC<HomePageHeaderProps> = (props) => {
 	return (
-		<nav className="navbar navbar-expand-lg navbar-light bg-light">
-			<div className="container-fluid">
-				<a className="navbar-brand" href="/">
-					SCRIPTS Demo
-				</a>
+		<nav>
+			<div
+				style={{
+					backgroundColor: "#0849A3",
+					padding: "1rem",
+					position: "relative",
+				}}
+			>
+				<img src={CUHeader} style={{ height: "4rem" }} />
+				<img
+					src={ScriptsImage}
+					style={{
+						height: "4rem",
+						position: "absolute",
+						right: "1rem",
+					}}
+				/>
 			</div>
 		</nav>
 	);
