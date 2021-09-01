@@ -8,7 +8,7 @@ export interface SearchResultCardProps {
 	queryid: string;
 	lang: string;
 	source: string;
-	showDialog: (content: string) => void;
+	showDialog: (content: string, doc: string) => void;
 }
 export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 	const [desc, setDesc] = useState<string>();
@@ -38,10 +38,10 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = (props) => {
 	}, [props.queryid, props.filename, props.lang, props.source, props]);
 
 	const handleShowEnglish = useCallback(() => {
-		props.showDialog(translatedDoc);
+		props.showDialog(translatedDoc, props.filename);
 	}, [translatedDoc, props]);
 	const handleShowSource = useCallback(() => {
-		props.showDialog(docSource);
+		props.showDialog(docSource, props.filename);
 	}, [docSource, props]);
 	return (
 		<div>

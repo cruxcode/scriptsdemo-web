@@ -22,6 +22,7 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 	const size = 20;
 	const [showDialog, setShowDialog] = useState<boolean>(false);
 	const [dialogContent, setDialogContent] = useState<string>("");
+	const [docName, setDocName] = useState<string>("");
 	const handleSearchClick = () => {
 		if (searchInput) {
 			const query = searchInput.current?.value || "";
@@ -136,15 +137,16 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 							lang={lang}
 							source={source}
 							key={c.id}
-							showDialog={(content: string) => {
+							showDialog={(content: string, doc: string) => {
 								setShowDialog(true);
 								setDialogContent(content);
+								setDocName(doc);
 							}}
 						/>
 					);
 				})}
 			</div>
-			{showDialog ? (
+			{/* {showDialog ? (
 				<div
 					style={{
 						display: "initial",
@@ -177,6 +179,28 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 							console.log("clicked inside");
 							event.stopPropagation();
 						}}
+						dangerouslySetInnerHTML={{ __html: dialogContent }}
+					></div>
+				</div>
+			) : null} */}
+			{showDialog ? (
+				<div
+					style={{
+						display: "inline-block",
+						width: "40%",
+						position: "absolute",
+					}}
+				>
+					<div
+						style={{
+							backgroundColor: "rgb(232, 242, 254)",
+							color: "rgb(68, 90, 132)",
+							fontWeight: "bold",
+						}}
+					>
+						<p>Document: {docName}</p>
+					</div>
+					<div
 						dangerouslySetInnerHTML={{ __html: dialogContent }}
 					></div>
 				</div>
