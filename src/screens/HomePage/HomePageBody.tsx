@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SearchResultCard } from "../../components/cards/SearchResult";
 import { search } from "../../services";
 import "./HomePage.scss";
@@ -23,6 +23,22 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 	const [showDialog, setShowDialog] = useState<boolean>(false);
 	const [dialogContent, setDialogContent] = useState<string>("");
 	const [docName, setDocName] = useState<string>("");
+	useEffect(() => {
+		setClir(undefined);
+		setDialogContent("");
+		setDocName("");
+		setShowDialog(false);
+		setQueryid(undefined);
+	}, [
+		source,
+		lang,
+		queryText,
+		setClir,
+		setDialogContent,
+		setDocName,
+		setShowDialog,
+		setQueryid,
+	]);
 	const handleSearchClick = () => {
 		if (searchInput) {
 			const query = searchInput.current?.value || "";
@@ -56,8 +72,8 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 				</div>
 				<div className={"searchbaritem"}>
 					<select
-						id="source"
-						name="source"
+						id="lang"
+						name="lang"
 						style={{
 							fontSize: "1rem",
 							padding: "0.25rem 0",
@@ -66,7 +82,7 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 							border: "2px solid rgb(66, 91, 132)",
 							minWidth: "8rem",
 						}}
-						value={source}
+						value={lang}
 						onChange={(selection) => {
 							setLang(selection.target.value as any);
 						}}
@@ -115,8 +131,9 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 					</button>
 				</div>
 			</div>
+			<div></div>
 			<div className={"searchresults"}>
-				{queryText ? (
+				{queryText && queryid ? (
 					<div
 						style={{
 							backgroundColor: "rgb(232, 242, 254)",
@@ -146,43 +163,6 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 					);
 				})}
 			</div>
-			{/* {showDialog ? (
-				<div
-					style={{
-						display: "initial",
-						position: "fixed",
-						top: "0",
-						left: "0",
-						width: "100vw",
-						height: "100vh",
-						backgroundColor: "rgba(0, 0, 0, 0.5)",
-					}}
-					onClick={() => {
-						console.log("clicked outside");
-						setShowDialog(false);
-					}}
-				>
-					<div
-						style={{
-							position: "absolute",
-							top: "50%",
-							left: "50%",
-							transform: "translate(-50%, -50%)",
-							maxHeight: "60vh",
-							maxWidth: "80vw",
-							overflow: "scroll",
-							backgroundColor: "white",
-							padding: "2rem",
-							borderRadius: "1rem",
-						}}
-						onClick={(event) => {
-							console.log("clicked inside");
-							event.stopPropagation();
-						}}
-						dangerouslySetInnerHTML={{ __html: dialogContent }}
-					></div>
-				</div>
-			) : null} */}
 			{showDialog ? (
 				<div
 					style={{
