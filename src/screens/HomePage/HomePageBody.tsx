@@ -132,7 +132,10 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 				</div>
 			</div>
 			<div></div>
-			<div className={"searchresults"}>
+			<div
+				className={"searchresults"}
+				style={{ overflow: "auto", height: "calc(100vh - 15rem)" }}
+			>
 				{queryText && queryid ? (
 					<div
 						style={{
@@ -169,6 +172,8 @@ export const HomePageBody: React.FC<HomePageBodyProps> = (props) => {
 						display: "inline-block",
 						width: "40%",
 						position: "absolute",
+						overflow: "auto",
+						height: "calc(100vh - 15rem)",
 					}}
 				>
 					<div
